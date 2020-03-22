@@ -1,9 +1,9 @@
 package company.alex.com.parrotwings.ui.presentation.screens.authorization.registration
 
-import android.util.Log
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import company.alex.com.parrotwings.R
-import company.alex.com.parrotwings.domain.model.AuthUser
+import company.alex.com.parrotwings.domain.model.UserRegistration
 import company.alex.com.parrotwings.domain.useCases.authorization.registration.RegistrationUseCase
 import company.alex.com.parrotwings.ui.presentation.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,18 +17,28 @@ class RegistrationViewModel @Inject constructor(private val registrationUserCase
     var password = MutableLiveData<String>()
     var email = MutableLiveData<String>()
 
-    fun registration() {
-        var authUser = AuthUser(userName.value.orEmpty(), password.value.orEmpty(), email.value.orEmpty())
+    var isEmailCorrect = ObservableField<Boolean>(false)
+    var isRegistrationAvailable = ObservableField<Boolean>(false)
 
-        registrationUserCase(authUser)
+    fun registration() {
+        var user = UserRegistration(userName.value.orEmpty(), password.value.orEmpty(), email.value.orEmpty())
+
+        registrationUserCase(user)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({ token ->
-                navigateRoot(R.id.mainFragment)
+            .subscribe({
+                navigateTo(R.id.actionRegistrationFragmentToMainFragment)
             },
-                { error ->
-                    Log.d("ERROR", error.message)
+                {
+                    showError(R.string.userAlreadyExists)
                 })
+    }
 
+    fun onInputTextChanged() {
+        var isFieldsNotEmpty =
+            !userName.value.isNullOrEmpty() && !password.value.isNullOrEmpty() && !email.value.isNullOrEmpty()
+
+
+        isRegistrationAvailable.set(isFieldsNotEmpty && isEmailCorrect.get()!!)
     }
 }

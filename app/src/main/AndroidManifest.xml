@@ -11,8 +11,6 @@
             android:supportsRtl="true"
             android:name=".App"
             android:theme="@style/AppTheme">
-        <activity
-                android:name="company.alex.com.parrotwings.ui.presentation.screens.authorization.AuthorizationActivity"/>
         <activity android:name=".ui.presentation.MainActivity"/>
         <activity android:name=".ui.presentation.screens.splash.SplashScreen">
             <intent-filter>

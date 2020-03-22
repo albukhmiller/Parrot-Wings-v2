@@ -10,10 +10,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import company.alex.com.parrotwings.ui.presentation.base.viewModelFactory.ViewModelFactory
+import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
+import org.jetbrains.anko.design.snackbar
 import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment() {
@@ -38,6 +39,8 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
 
         lifecycle.addObserver(viewModel)
 
+        initErrorHandler(viewDataBinding.root)
+
         return viewDataBinding.root
     }
 
@@ -61,6 +64,15 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
                         findNavController().navigate(command.direction, bundle)
                     }
                 }
+            }
+        }
+    }
+
+    private fun initErrorHandler(view: View) {
+        viewModel.errorHandlerCommand.observe(this) { command ->
+            when (command) {
+                is AlertDialogCommand.ShowError -> view.snackbar(command.message)
+                is AlertDialogCommand.ShowErrorById -> view.snackbar(command.messageId)
             }
         }
     }

@@ -2,6 +2,7 @@ package company.alex.com.parrotwings.di.modules
 
 import company.alex.com.parrotwings.BuildConfig
 import company.alex.com.parrotwings.data.remote.ApiServer
+import company.alex.com.parrotwings.data.remote.interseptors.ExceptionHandlerInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -22,7 +23,7 @@ class NetworkModule {
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(
             OkHttpClient.Builder()
-//                .addInterceptor(RequestInterceptor())
+                .addInterceptor(ExceptionHandlerInterceptor())
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
         )

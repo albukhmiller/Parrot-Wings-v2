@@ -6,4 +6,10 @@
     <string name="btn_login">Войти</string>
     <string name="registration">Зарегистрироваться?</string>
     <string name="btnRegistation">Зарегистировать</string>
+    <string name="login">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="email">Email</string>
+    <string name="invalidLoginOrPassword">Неверный логин либо пароль</string>
+    <string name="userAlreadyExists">Пользователь с таким email уже существует</string>
+    <string name="emailValidatorError">Неверный формат email</string>
 </resources>
