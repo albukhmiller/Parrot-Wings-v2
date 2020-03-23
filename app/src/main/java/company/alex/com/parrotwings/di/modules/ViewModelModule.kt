@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import company.alex.com.parrotwings.di.scopes.ViewModelKey
 import company.alex.com.parrotwings.ui.presentation.base.viewModelFactory.ViewModelFactory
 import company.alex.com.parrotwings.ui.presentation.screens.authorization.login.LoginViewModel
-import company.alex.com.parrotwings.ui.presentation.screens.main.MainViewModel
 import company.alex.com.parrotwings.ui.presentation.screens.authorization.registration.RegistrationViewModel
+import company.alex.com.parrotwings.ui.presentation.screens.main.MainViewModel
+import company.alex.com.parrotwings.ui.presentation.screens.mainActivity.RootViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -31,4 +32,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RegistrationViewModel::class)
     internal abstract fun providesRegistrationViewModel(registrationViewModel: RegistrationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RootViewModel::class)
+    internal abstract fun providesRootViewModel(rootViewModel: RootViewModel): ViewModel
 }

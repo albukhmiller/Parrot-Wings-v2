@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import company.alex.com.parrotwings.R
-import company.alex.com.parrotwings.ui.presentation.MainActivity
+import company.alex.com.parrotwings.ui.presentation.screens.mainActivity.MainActivity
 import org.jetbrains.anko.startActivity
 
 
