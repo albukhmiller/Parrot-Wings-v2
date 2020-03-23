@@ -10,7 +10,7 @@ import company.alex.com.parrotwings.domain.model.Transaction
 
 class TransactionAdapter : BaseAdapter<TransactionAdapter.TransactionHolder, MutableList<Transaction>>() {
 
-    private var data = mutableListOf<Transaction>()
+    private var data: MutableList<Transaction>? = null
 
     override fun setData(data: MutableList<Transaction>) {
         this.data = data
@@ -30,9 +30,9 @@ class TransactionAdapter : BaseAdapter<TransactionAdapter.TransactionHolder, Mut
         return TransactionHolder(binding)
     }
 
-    override fun getItemCount() = data.size
+    override fun getItemCount() = data?.size ?: 0
 
-    override fun onBindViewHolder(holder: TransactionHolder, position: Int) = holder.bind(data[position])
+    override fun onBindViewHolder(holder: TransactionHolder, position: Int) = holder.bind(data!![position])
 
 
     inner class TransactionHolder(private val binding: ItemTransactionBinding) :

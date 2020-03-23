@@ -18,6 +18,8 @@ class CustomBindingAdapters {
         @JvmStatic
         @BindingAdapter("app:data")
         fun <T> bindRecyclerViewAdapter(rv: RecyclerView, data: T) {
+            if(data == null) return
+
             if (rv.adapter is BindableListAdapter<*>) {
                 (rv.adapter as BindableListAdapter<T>).setData(data)
             }
