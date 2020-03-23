@@ -1,7 +1,6 @@
 package company.alex.com.parrotwings.domain.interactors
 
 import company.alex.com.parrotwings.data.local.LocalStorageRepository
-import company.alex.com.parrotwings.domain.interactors.user.UserInteractor
 import javax.inject.Inject
 
 class UserInteractorImpl @Inject constructor(private val localStorageRepository: LocalStorageRepository) :

@@ -1,6 +1,6 @@
 package company.alex.com.parrotwings.ui.presentation.screens.mainActivity
 
-import company.alex.com.parrotwings.domain.interactors.user.UserInteractor
+import company.alex.com.parrotwings.domain.interactors.UserInteractor
 import company.alex.com.parrotwings.ui.presentation.base.BaseViewModel
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package company.alex.com.parrotwings.di.modules
 
+import company.alex.com.parrotwings.domain.interactors.UserInteractor
 import company.alex.com.parrotwings.domain.interactors.UserInteractorImpl
-import company.alex.com.parrotwings.domain.interactors.user.UserInteractor
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
