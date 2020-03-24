@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import company.alex.com.parrotwings.ui.presentation.base.viewModelFactory.ViewModelFactory
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
+import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.design.snackbar
 import javax.inject.Inject
 
@@ -48,6 +49,14 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
         super.onActivityCreated(savedInstanceState)
 
         initNavigation()
+    }
+
+    protected fun initToolbar() {
+        activity?.setActionBar(toolbar)
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun initNavigation() {

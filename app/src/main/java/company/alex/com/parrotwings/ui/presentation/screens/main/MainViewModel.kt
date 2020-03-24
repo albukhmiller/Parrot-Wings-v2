@@ -37,6 +37,11 @@ class MainViewModel @Inject constructor(
         navigateTo(R.id.profileFragment)
     }
 
+
+    fun createTransaction() {
+        navigateTo(R.id.newTransactionFragment)
+    }
+
     private fun retrieveTransactionHistory() {
         transactionHistoryUseCase()
             .observeOn(AndroidSchedulers.mainThread())

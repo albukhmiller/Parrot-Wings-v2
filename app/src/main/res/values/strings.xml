@@ -17,4 +17,7 @@
     <string name="createTransfer">Создать перевод</string>
     <string name="nameLabel">Имя:</string>
     <string name="emailLabel">Email:</string>
+    <string name="transferAmount">Сумма перевода</string>
+    <string name="send">Отправить</string>
+    <string name="createTransaction">Создание транзакции</string>
 </resources>

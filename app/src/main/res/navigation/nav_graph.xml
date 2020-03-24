@@ -21,4 +21,7 @@
     <fragment android:id="@+id/profileFragment"
               android:name="company.alex.com.parrotwings.ui.presentation.screens.profile.ProfileFragment"
               android:label="ProfileFragment"/>
+    <fragment android:id="@+id/newTransactionFragment"
+              android:name="company.alex.com.parrotwings.ui.presentation.screens.newTransaction.NewTransactionFragment"
+              android:label="NewTransactionFragment"/>
 </navigation>
