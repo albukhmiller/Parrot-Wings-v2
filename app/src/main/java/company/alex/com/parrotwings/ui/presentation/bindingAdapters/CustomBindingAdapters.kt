@@ -1,4 +1,4 @@
-package company.alex.com.parrotwings.ui.bindingAdapters
+package company.alex.com.parrotwings.ui.presentation.bindingAdapters
 
 import android.view.View
 import androidx.databinding.BindingAdapter

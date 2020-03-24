@@ -3,6 +3,8 @@ package company.alex.com.parrotwings.ui.presentation.base
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
+import company.alex.com.parrotwings.R
+import company.alex.com.parrotwings.data.remote.excpetions.AuthorizationException
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
 import company.alex.com.parrotwings.utils.SingleLiveData
@@ -28,4 +30,11 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
     protected fun showError(message: String) = errorHandlerCommand.postValue(AlertDialogCommand.ShowError(message))
     protected fun showError(messageId: Int) = errorHandlerCommand.postValue(AlertDialogCommand.ShowErrorById(messageId))
+
+    protected fun handleExceptions(t: Throwable?) {
+        when (t) {
+            is AuthorizationException -> navigateTo(R.id.loginFragment)
+            else -> showError(t?.message!!)
+        }
+    }
 }

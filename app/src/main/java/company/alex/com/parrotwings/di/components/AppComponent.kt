@@ -5,6 +5,7 @@ import company.alex.com.parrotwings.ui.presentation.screens.authorization.login.
 import company.alex.com.parrotwings.ui.presentation.screens.authorization.registration.RegistrationFragment
 import company.alex.com.parrotwings.ui.presentation.screens.main.MainFragment
 import company.alex.com.parrotwings.ui.presentation.screens.mainActivity.MainActivity
+import company.alex.com.parrotwings.ui.presentation.screens.profile.ProfileFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,5 +23,6 @@ interface AppComponent {
     fun inject(loginFragment: LoginFragment)
     fun inject(registrationFragment: RegistrationFragment)
     fun inject(rootActivity: MainActivity)
+    fun inject(profileFragment: ProfileFragment)
 
 }

@@ -21,5 +21,10 @@ class LocalStorageRepositoryImpl @Inject constructor(private val sharedPreferenc
             .apply()
     }
 
-
+    override fun clearToken() {
+        sharedPreferences
+            .edit()
+            .remove(TOKEN)
+            .apply()
+    }
 }

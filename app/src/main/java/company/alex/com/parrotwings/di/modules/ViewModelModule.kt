@@ -8,6 +8,7 @@ import company.alex.com.parrotwings.ui.presentation.screens.authorization.login.
 import company.alex.com.parrotwings.ui.presentation.screens.authorization.registration.RegistrationViewModel
 import company.alex.com.parrotwings.ui.presentation.screens.main.MainViewModel
 import company.alex.com.parrotwings.ui.presentation.screens.mainActivity.RootViewModel
+import company.alex.com.parrotwings.ui.presentation.screens.profile.ProfileViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -37,4 +38,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RootViewModel::class)
     internal abstract fun providesRootViewModel(rootViewModel: RootViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProfileViewModel::class)
+    internal abstract fun providesProfileViewModel(profileViewModel: ProfileViewModel): ViewModel
 }

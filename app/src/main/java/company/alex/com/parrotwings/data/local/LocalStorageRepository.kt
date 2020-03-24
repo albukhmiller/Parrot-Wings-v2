@@ -4,4 +4,5 @@ interface LocalStorageRepository {
 
     fun saveToken(token: String)
     fun getToken(): String
+    fun clearToken()
 }
