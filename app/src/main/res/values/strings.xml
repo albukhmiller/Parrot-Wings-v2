@@ -12,6 +12,7 @@
     <string name="invalidLoginOrPassword">Неверный логин либо пароль</string>
     <string name="userAlreadyExists">Пользователь с таким email уже существует</string>
     <string name="emailValidatorError">Неверный формат email</string>
+    <string name="exceedsBalanceError">Превышен баланс</string>
     <string name="lastTransactionsHistory">История последних транзакций</string>
     <string name="profile">Профиль</string>
     <string name="createTransfer">Создать перевод</string>

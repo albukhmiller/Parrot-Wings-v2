@@ -11,12 +11,25 @@ class Validators {
             if (!Patterns.EMAIL_ADDRESS.matcher(view.text).matches()) {
                 view.error = view.context.getString(R.string.emailValidatorError)
 
-                return  false
+                return false
             }
 
             view.error = null
 
-            return  true
+            return true
+        }
+
+        fun validateExceedBalance(view: EditText, balance: Double): Boolean {
+            if (view.text.isNullOrEmpty()) return false
+
+            var value = view.text.toString().toDouble()
+
+            if (value < 0 || value > balance) {
+                view.error = view.context.getString(R.string.exceedsBalanceError)
+                return false
+            }
+
+            return true
         }
     }
 }
