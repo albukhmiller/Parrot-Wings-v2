@@ -7,7 +7,7 @@ import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.domain.model.Transaction
 import company.alex.com.parrotwings.domain.useCases.authorization.logout.LogoutUseCase
 import company.alex.com.parrotwings.domain.useCases.transaction.TransactionHistoryUseCase
-import company.alex.com.parrotwings.domain.useCases.userInfo.UserInfoUseCase
+import company.alex.com.parrotwings.domain.useCases.user.UserInfoUseCase
 import company.alex.com.parrotwings.ui.presentation.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

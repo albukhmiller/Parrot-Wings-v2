@@ -45,6 +45,10 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
         return viewDataBinding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.viewModelStore?.clear()
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

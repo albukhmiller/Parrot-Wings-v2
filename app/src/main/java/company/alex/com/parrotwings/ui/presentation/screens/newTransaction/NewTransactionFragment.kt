@@ -6,14 +6,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mancj.materialsearchbar.MaterialSearchBar
+import androidx.lifecycle.Observer
 import company.alex.com.parrotwings.App
 import company.alex.com.parrotwings.BR
 import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.databinding.FragmentNewTransactionBinding
+import company.alex.com.parrotwings.ui.presentation.adapters.RecipientAdapter
 import company.alex.com.parrotwings.ui.presentation.base.BaseFragment
+import company.alex.com.parrotwings.utils.ControlsConfigurator
 import company.alex.com.parrotwings.utils.Validators
 import kotlinx.android.synthetic.main.fragment_new_transaction.*
+import kotlinx.android.synthetic.main.search_user_layout.*
 
 
 class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNewTransactionBinding>() {
@@ -28,25 +31,36 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchBar.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener {
-            override fun onButtonClicked(buttonCode: Int) {
-                var t = 4
-            }
 
-            override fun onSearchStateChanged(enabled: Boolean) {
-            }
-
-            override fun onSearchConfirmed(text: CharSequence?) {
-                var t = 4
-            }
-
-        })
         initToolbar()
 
-        configurateAmountEditView()
+        configureAmountEditView()
+        configureRecipientEditView()
     }
 
-    private fun configurateAmountEditView() {
+    private fun configureRecipientEditView() {
+        edRecipient.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Validators.validateEmptyString(edRecipient)
+            }
+        })
+
+        var adapter = RecipientAdapter {
+            viewModel.recipient.value = it.name
+            viewModel.isForceHideUserSuggestions = true
+        }
+
+        ControlsConfigurator.configarateRecyclerView(rvRecipient, adapter)
+        viewModel.userSuggestions.observe(this, Observer {
+            adapter.setData(it)
+        })
+    }
+
+    private fun configureAmountEditView() {
         edAmount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
@@ -54,10 +68,10 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.isCreateTransactionAvailable.set(
-                    Validators.validateExceedBalance(edAmount, viewModel.balance.value!!)
+                    Validators.validateEmptyString(edAmount) &&
+                            Validators.validateExceedBalance(edAmount, viewModel.balance.value!!)
                 )
             }
-
         })
     }
 }

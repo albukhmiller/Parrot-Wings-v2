@@ -6,8 +6,8 @@ import company.alex.com.parrotwings.data.remote.repositories.authorization.Autho
 import company.alex.com.parrotwings.data.remote.repositories.authorization.AuthorizationRepositoryImpl
 import company.alex.com.parrotwings.data.remote.repositories.transactions.TransactionRepository
 import company.alex.com.parrotwings.data.remote.repositories.transactions.TransactionRepositoryImpl
-import company.alex.com.parrotwings.data.remote.repositories.userInfo.UserInfoRepository
-import company.alex.com.parrotwings.data.remote.repositories.userInfo.UserInfoRepositoryImpl
+import company.alex.com.parrotwings.data.remote.repositories.userInfo.UserRepository
+import company.alex.com.parrotwings.data.remote.repositories.userInfo.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -29,7 +29,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesUserInfoRepository(userInfoRepository: UserInfoRepositoryImpl): UserInfoRepository = userInfoRepository
+    fun providesUserInfoRepository(userRepository: UserRepositoryImpl): UserRepository = userRepository
 
 
     /*local repositories*/

@@ -21,4 +21,7 @@
     <string name="transferAmount">Сумма перевода</string>
     <string name="send">Отправить</string>
     <string name="createTransaction">Создание транзакции</string>
+    <string name="userWitheSuchNameNotFound">Пользователь с таким именем не найден</string>
+    <string name="recipientName">Имя получателя</string>
+    <string name="requiredField">Обязательное для заполнения поле</string>
 </resources>

@@ -31,5 +31,16 @@ class Validators {
 
             return true
         }
+
+        fun validateEmptyString(view: EditText): Boolean {
+            if (view.text.isNullOrEmpty()) {
+                view.error = view.context.getString(R.string.requiredField)
+
+                return false
+            }
+
+            return true
+
+        }
     }
 }
