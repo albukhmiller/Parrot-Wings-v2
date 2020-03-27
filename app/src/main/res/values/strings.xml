@@ -24,4 +24,5 @@
     <string name="userWitheSuchNameNotFound">Пользователь с таким именем не найден</string>
     <string name="recipientName">Имя получателя</string>
     <string name="requiredField">Обязательное для заполнения поле</string>
+    <string name="noConnectionInternet">Проблемы с Интернетом. Проверьте соединение и повторите заново</string>
 </resources>

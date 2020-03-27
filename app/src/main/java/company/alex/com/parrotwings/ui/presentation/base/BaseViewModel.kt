@@ -8,6 +8,7 @@ import company.alex.com.parrotwings.data.remote.excpetions.AuthorizationExceptio
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
 import company.alex.com.parrotwings.utils.SingleLiveData
+import java.net.ConnectException
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
@@ -34,6 +35,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     protected fun handleExceptions(t: Throwable?) {
         when (t) {
             is AuthorizationException -> navigateTo(R.id.loginFragment)
+            is ConnectException -> showError(R.string.noConnectionInternet)
             else -> showError(t?.message!!)
         }
     }
