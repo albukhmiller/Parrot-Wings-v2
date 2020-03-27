@@ -2,12 +2,16 @@ package company.alex.com.parrotwings.ui.presentation.bindingAdapters
 
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.databinding.ObservableField
 import androidx.recyclerview.widget.RecyclerView
+import company.alex.com.parrotwings.R
+import org.jetbrains.anko.textColor
 
 
 class CustomBindingAdapters {
@@ -84,6 +88,17 @@ class CustomBindingAdapters {
 
             if (editText.text.toString().toDouble() != newValue)
                 editText.setText(newValue.toString())
+        }
+
+        @JvmStatic
+        @BindingAdapter("app:colorTextAmount")
+        fun colorTextAmountAdapter(
+            textView: TextView,
+            amount: Double
+        ) {
+            if (amount < 0)
+                textView.textColor = ContextCompat.getColor(textView.context, R.color.red)
+            else textView.textColor = ContextCompat.getColor(textView.context, R.color.green)
         }
     }
 }

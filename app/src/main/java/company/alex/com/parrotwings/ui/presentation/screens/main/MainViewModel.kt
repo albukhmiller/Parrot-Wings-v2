@@ -47,7 +47,7 @@ class MainViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                transactions.value = it
+                transactions.value = it.asReversed()
             }, { error ->
                 handleExceptions(error)
             })

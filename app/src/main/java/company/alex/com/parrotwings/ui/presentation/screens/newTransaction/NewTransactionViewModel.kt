@@ -88,7 +88,7 @@ class NewTransactionViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe({
                 userSuggestions.value = it
-            }, {})
+            }, { t -> handleExceptions(t) })
     }
 
     private fun toggleUserSuggestionsVisibilityFlags(): Boolean {
