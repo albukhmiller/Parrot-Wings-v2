@@ -5,12 +5,18 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.data.remote.excpetions.AuthorizationException
+import company.alex.com.parrotwings.domain.useCases.authorization.logout.LogoutUseCase
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
 import company.alex.com.parrotwings.utils.SingleLiveData
 import java.net.ConnectException
+import javax.inject.Inject
 
-abstract class BaseViewModel : ViewModel(), LifecycleObserver {
+abstract class BaseViewModel : ViewModel(),
+    LifecycleObserver {
+
+    @Inject
+    lateinit var logoutUseCase: LogoutUseCase
 
     val navigationCommand = SingleLiveData<NavigationCommand>()
     val errorHandlerCommand = SingleLiveData<AlertDialogCommand>()
@@ -20,6 +26,9 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
     protected fun navigateTo(direction: Int) = navigationCommand.postValue(NavigationCommand.To(direction))
     protected fun navigateTo(direction: Int, data: Any) =
         navigationCommand.postValue(NavigationCommand.ToWithData(direction, data))
+
+    protected fun clearBackStackAndNavigate(destination: Int) =
+        navigationCommand.postValue(NavigationCommand.ChangeRootDestination(destination))
 
     protected fun navigateBackTo(destinationId: Int) =
         navigationCommand.postValue(NavigationCommand.BackTo(destinationId))
@@ -34,9 +43,14 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
     protected fun handleExceptions(t: Throwable?) {
         when (t) {
-            is AuthorizationException -> navigateTo(R.id.loginFragment)
+            is AuthorizationException -> logout()
             is ConnectException -> showError(R.string.noConnectionInternet)
             else -> showError(t?.message!!)
         }
+    }
+
+    fun logout() {
+        logoutUseCase()
+        clearBackStackAndNavigate(R.id.loginFragment)
     }
 }

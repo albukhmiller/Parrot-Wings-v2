@@ -27,7 +27,7 @@ class RegistrationViewModel @Inject constructor(private val registrationUserCase
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                navigateTo(R.id.actionRegistrationFragmentToMainFragment)
+                clearBackStackAndNavigate(R.id.mainFragment)
             },
                 {
                     showError(R.string.userAlreadyExists)

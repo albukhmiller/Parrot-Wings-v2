@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val transactionHistoryUseCase: TransactionHistoryUseCase,
-    private val logoutUseCase: LogoutUseCase,
     private val userInfoUseCase: UserInfoUseCase
 ) : BaseViewModel() {
 
@@ -26,11 +25,6 @@ class MainViewModel @Inject constructor(
     fun onResume() {
         retrieveTransactionHistory()
         retrieveBalance()
-    }
-
-    fun logout() {
-        logoutUseCase()
-        navigateTo(R.id.loginFragment)
     }
 
     fun showProfile() {

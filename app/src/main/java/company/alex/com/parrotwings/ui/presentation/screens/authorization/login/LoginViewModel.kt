@@ -27,7 +27,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             .subscribeOn(Schedulers.io())
             .doFinally { isLoading.set(false) }
             .subscribe({
-                navigateTo(R.id.actionLoginFragmentToMainFragment)
+                clearBackStackAndNavigate(R.id.mainFragment)
             }, {
                 showError(R.string.invalidLoginOrPassword)
             })

@@ -16,9 +16,7 @@ class MainActivity : BaseActivity<RootViewModel>() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) return
 
-        if (viewModel.isUserAuthorized())
-            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.mainFragment)
-        else Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.loginFragment)
+        viewModel.loadRootScreen()
 
     }
 }
