@@ -1,10 +1,12 @@
 package company.alex.com.parrotwings.ui.presentation.screens.mainActivity
 
 import android.os.Bundle
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import company.alex.com.parrotwings.App
 import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.ui.presentation.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity<RootViewModel>() {
     override var viewModelClass = RootViewModel::class.java
@@ -17,6 +19,20 @@ class MainActivity : BaseActivity<RootViewModel>() {
         if (savedInstanceState == null) return
 
         viewModel.loadRootScreen()
+    }
 
+    override fun onBackPressed() {
+        if (isRootFragment())
+            moveTaskToBack(true)
+        else
+            super.onBackPressed()
+    }
+
+    private fun isRootFragment(): Boolean {
+        val navHostFragment = nav_host_fragment as NavHostFragment
+        val inflater = navHostFragment.navController.navInflater
+        val graph = inflater.inflate(R.navigation.nav_graph)
+
+        return graph.startDestination == navHostFragment.navController.currentDestination?.id
     }
 }
