@@ -75,7 +75,11 @@ class CustomBindingAdapters {
         fun bindDoubleToEditTextInverse(editText: EditText): Double? {
             if (editText.text.isNullOrEmpty()) return null
 
-            return editText.text.toString().toDouble()
+            return try {
+                editText.text.toString().toDouble()
+            } catch (ex: NumberFormatException) {
+                0.0
+            }
         }
 
         @JvmStatic

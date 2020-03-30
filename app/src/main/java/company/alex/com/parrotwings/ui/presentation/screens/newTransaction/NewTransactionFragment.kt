@@ -62,11 +62,18 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
 
     private fun configureAmountEditView() {
         edAmount.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+            }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!s.toString().isNullOrEmpty() && !Character.isDigit(s.toString()[0])) {
+                    edAmount.removeTextChangedListener(this)
+                    edAmount.editableText.insert(0, "0")
+                    edAmount.addTextChangedListener(this)
+                }
+
                 viewModel.isCreateTransactionAvailable.set(
                     Validators.validateEmptyString(edAmount) &&
                             Validators.validateExceedBalance(edAmount, viewModel.balance.value!!)

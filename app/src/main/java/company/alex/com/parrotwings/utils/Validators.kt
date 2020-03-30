@@ -22,7 +22,12 @@ class Validators {
         fun validateExceedBalance(view: EditText, balance: Double): Boolean {
             if (view.text.isNullOrEmpty()) return false
 
-            var value = view.text.toString().toDouble()
+            var value: Double = try {
+
+                view.text.toString().toDouble()
+            } catch (ex: NumberFormatException) {
+                0.0
+            }
 
             if (value < 0 || value > balance) {
                 view.error = view.context.getString(R.string.exceedsBalanceError)
