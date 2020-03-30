@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import company.alex.com.parrotwings.ui.presentation.base.viewModelFactory.ViewModelFactory
+import company.alex.com.parrotwings.ui.presentation.extensions.hideKeyboard
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
 import company.alex.com.parrotwings.ui.presentation.navigation.NavGraphConfigurator.Companion.changeRootFragment
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
-import company.alex.com.parrotwings.ui.presentation.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.design.snackbar
@@ -35,7 +35,8 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        viewModel = activity?.run { ViewModelProvider(this, viewModelFactory)[viewModelClass] }!!
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[viewModelClass]
 
         viewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         viewDataBinding.setVariable(bindingVariable, viewModel)
@@ -51,7 +52,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
 
     override fun onDestroy() {
         super.onDestroy()
-        activity?.viewModelStore?.clear()
+//        activity?.viewModelStore?.clear()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
