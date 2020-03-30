@@ -54,7 +54,7 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
             viewModel.isForceHideUserSuggestions = true
         }
 
-        ControlsConfigurator.configarateRecyclerView(rvRecipient, adapter)
+        ControlsConfigurator.configurateRecyclerView(rvRecipient, adapter)
         viewModel.userSuggestions.observe(this, Observer {
             adapter.setData(it)
         })

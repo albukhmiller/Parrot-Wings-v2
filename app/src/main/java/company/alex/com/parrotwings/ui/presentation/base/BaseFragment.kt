@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.ui.presentation.base.viewModelFactory.ViewModelFactory
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
+import company.alex.com.parrotwings.ui.presentation.navigation.NavGraphConfigurator.Companion.changeRootFragment
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -75,7 +75,10 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
                     is NavigationCommand.ToRoot -> findNavController().navigate(command.navHostFragment)
                     is NavigationCommand.To -> findNavController().navigate(command.direction)
                     is NavigationCommand.BackTo -> findNavController().popBackStack(command.destinationId, true)
-                    is NavigationCommand.ChangeRootDestination -> changeRootFragment(command.destination)
+                    is NavigationCommand.ChangeRootDestination -> changeRootFragment(
+                        activity?.nav_host_fragment as NavHostFragment,
+                        command.destination
+                    )
                     is NavigationCommand.ToWithData -> {
                         var bundle = Bundle()
                         bundle.putParcelable("nav", command.data as Parcelable)
@@ -93,14 +96,5 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
                 is AlertDialogCommand.ShowErrorById -> view.snackbar(command.messageId)
             }
         }
-    }
-
-    private fun changeRootFragment(destination: Int) {
-        val navHostFragment = activity?.nav_host_fragment as NavHostFragment
-        val inflater = navHostFragment.navController.navInflater
-        val graph = inflater.inflate(R.navigation.nav_graph)
-        graph.startDestination = destination
-
-        navHostFragment.navController.graph = graph
     }
 }

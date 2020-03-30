@@ -27,6 +27,6 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ControlsConfigurator.configarateRecyclerView(rvTransactions, TransactionAdapter())
+        ControlsConfigurator.configurateRecyclerView(rvTransactions, TransactionAdapter())
     }
 }

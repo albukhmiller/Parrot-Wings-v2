@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ControlsConfigurator {
 
     companion object {
-        fun configarateRecyclerView(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<*>) {
+        fun configurateRecyclerView(recyclerView: RecyclerView, adapter: RecyclerView.Adapter<*>) {
             recyclerView.setHasFixedSize(true)
             recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
             recyclerView.addItemDecoration(

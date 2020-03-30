@@ -5,6 +5,7 @@ import androidx.navigation.fragment.NavHostFragment
 import company.alex.com.parrotwings.App
 import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.ui.presentation.base.BaseActivity
+import company.alex.com.parrotwings.ui.presentation.navigation.NavGraphConfigurator
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -16,9 +17,12 @@ class MainActivity : BaseActivity<RootViewModel>() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) return
+        if (savedInstanceState != null) return
 
-        viewModel.loadRootScreen()
+        if (viewModel.isUserAuthorized())
+            NavGraphConfigurator.changeRootFragment(nav_host_fragment as NavHostFragment, R.id.mainFragment)
+        else
+            NavGraphConfigurator.changeRootFragment(nav_host_fragment as NavHostFragment, R.id.loginFragment)
     }
 
     override fun onBackPressed() {
