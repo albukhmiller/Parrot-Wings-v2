@@ -83,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:id="@+id/edAmount"
                     android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
                     app:bindableText="@={viewModel.amount}"
                     android:hint="@string/transferAmount"/>
         </com.google.android.material.textfield.TextInputLayout>
