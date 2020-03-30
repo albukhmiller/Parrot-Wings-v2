@@ -19,7 +19,8 @@ import kotlinx.android.synthetic.main.fragment_new_transaction.*
 import kotlinx.android.synthetic.main.search_user_layout.*
 
 
-class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNewTransactionBinding>() {
+class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNewTransactionBinding>(), TextWatcher {
+
     override var layoutId = R.layout.fragment_new_transaction
     override var bindingVariable = BR.viewModel
     override var viewModelClass = NewTransactionViewModel::class.java
@@ -39,19 +40,14 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
     }
 
     private fun configureRecipientEditView() {
-        edRecipient.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Validators.validateEmptyString(edRecipient)
-            }
-        })
+        edRecipient.addTextChangedListener(this)
 
         var adapter = RecipientAdapter {
-            viewModel.recipient.value = it.name
             viewModel.isForceHideUserSuggestions = true
+            viewModel.isUserSuggestionsVisible.set(false)
+            edRecipient.removeTextChangedListener(this)
+            edRecipient.editableText.replace(0, edRecipient.text?.length!!, it.name)
+            edRecipient.addTextChangedListener(this)
         }
 
         ControlsConfigurator.configurateRecyclerView(rvRecipient, adapter)
@@ -80,5 +76,17 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
                 )
             }
         })
+    }
+
+    /*recipient text watcher*/
+    override fun afterTextChanged(s: Editable?) {
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        Validators.validateEmptyString(edRecipient)
+        viewModel.updateUserSuggestions(s.toString())
     }
 }

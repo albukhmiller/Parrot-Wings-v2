@@ -2,7 +2,6 @@ package company.alex.com.parrotwings.ui.presentation.screens.newTransaction
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import company.alex.com.parrotwings.domain.model.NewTransaction
@@ -14,6 +13,7 @@ import company.alex.com.parrotwings.ui.presentation.base.BaseViewModel
 import io.reactivex.Emitter
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -23,6 +23,7 @@ class NewTransactionViewModel @Inject constructor(
     private val userInfoUseCase: UserInfoUseCase,
     private val searchUserUseCase: SearchUserUseCase
 ) : BaseViewModel() {
+
     var balance = MutableLiveData<Double>()
     var amount = MutableLiveData<Double>()
     var recipient = MutableLiveData<String>()
@@ -36,22 +37,10 @@ class NewTransactionViewModel @Inject constructor(
 
     var userSuggestions = MutableLiveData<MutableList<SearchUser>>()
 
+    private lateinit var searchUserRequest: Disposable
     private var output: Observable<String> = Observable.create<String> { emitter ->
         this.emitter = emitter
     }.debounce(1L, TimeUnit.SECONDS)
-
-    private val mediator = MediatorLiveData<String>().apply {
-        addSource(recipient) { value ->
-            setValue(value)
-
-            if (value.isNullOrEmpty())
-                return@addSource isUserSuggestionsVisible.set(false)
-
-            if (toggleUserSuggestionsVisibilityFlags())
-                emitter?.onNext(value)
-            isForceHideUserSuggestions = false
-        }
-    }.also { it.observeForever { /* empty */ } }
 
     init {
         output.subscribe {
@@ -62,6 +51,15 @@ class NewTransactionViewModel @Inject constructor(
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         retrieveBalance()
+    }
+
+    fun updateUserSuggestions(value: String) {
+        if (value.isNullOrEmpty())
+            return isUserSuggestionsVisible.set(false)
+
+        userSuggestions.postValue(mutableListOf())
+
+        emitter?.onNext(value)
     }
 
     fun createTransaction() {
@@ -83,22 +81,12 @@ class NewTransactionViewModel @Inject constructor(
     }
 
     private fun searchUsers(filter: String) {
-        searchUserUseCase(filter)
+        searchUserRequest = searchUserUseCase(filter)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
                 userSuggestions.value = it
+                isUserSuggestionsVisible.set(true)
             }, { t -> handleExceptions(t) })
-    }
-
-    private fun toggleUserSuggestionsVisibilityFlags(): Boolean {
-
-        if (isForceHideUserSuggestions) {
-            isUserSuggestionsVisible.set(false)
-            return false
-        }
-        isUserSuggestionsVisible.set(true)
-
-        return true
     }
 }
