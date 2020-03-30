@@ -40,16 +40,18 @@ abstract class BaseViewModel : ViewModel(),
 
     protected fun showError(message: String) = errorHandlerCommand.postValue(AlertDialogCommand.ShowError(message))
     protected fun showError(messageId: Int) = errorHandlerCommand.postValue(AlertDialogCommand.ShowErrorById(messageId))
+    protected fun showDialog(messageId: Int) =
+        errorHandlerCommand.postValue(AlertDialogCommand.ShowDialog(messageId) { logout() })
 
     protected fun handleExceptions(t: Throwable?) {
         when (t) {
-            is AuthorizationException -> logout()
+            is AuthorizationException -> showDialog(R.string.unauthorizedError)
             is ConnectException -> showError(R.string.noConnectionInternet)
             else -> showError(t?.message!!)
         }
     }
 
-    fun logout() {
+    private fun logout() {
         logoutUseCase()
         clearBackStackAndNavigate(R.id.loginFragment)
     }

@@ -9,10 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.ui.presentation.base.viewModelFactory.ViewModelFactory
 import company.alex.com.parrotwings.ui.presentation.extensions.hideKeyboard
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
@@ -21,6 +21,8 @@ import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.okButton
+import org.jetbrains.anko.support.v4.alert
 import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment() {
@@ -48,11 +50,6 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
         initErrorHandler(viewDataBinding.root)
 
         return viewDataBinding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-//        activity?.viewModelStore?.clear()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -97,6 +94,9 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
             when (command) {
                 is AlertDialogCommand.ShowError -> view.snackbar(command.message)
                 is AlertDialogCommand.ShowErrorById -> view.snackbar(command.messageId)
+                is AlertDialogCommand.ShowDialog -> alert(getString(command.message), getString(R.string.error)) {
+                    okButton { command.okAction }.also { context?.setTheme(R.style.AlertDialog) }
+                }.show()
             }
         }
     }

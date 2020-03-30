@@ -31,6 +31,10 @@ class MainViewModel @Inject constructor(
         navigateTo(R.id.profileFragment)
     }
 
+    fun manualLogout() {
+        logoutUseCase()
+        clearBackStackAndNavigate(R.id.loginFragment)
+    }
 
     fun createTransaction() {
         navigateTo(R.id.newTransactionFragment)

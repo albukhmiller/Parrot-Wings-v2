@@ -13,4 +13,12 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <style name="AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/AlertDialogButton</item>
+    </style>
+
+    <style name="AlertDialogButton" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>
