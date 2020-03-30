@@ -1,4 +1,4 @@
-package company.alex.com.parrotwings.ui.presentation.screens.extensions
+package company.alex.com.parrotwings.ui.presentation.extensions
 
 import android.content.Context
 import android.view.View

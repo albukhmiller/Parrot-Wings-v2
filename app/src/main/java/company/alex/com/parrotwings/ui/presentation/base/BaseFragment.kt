@@ -1,12 +1,10 @@
 package company.alex.com.parrotwings.ui.presentation.base
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -18,7 +16,7 @@ import company.alex.com.parrotwings.ui.presentation.base.viewModelFactory.ViewMo
 import company.alex.com.parrotwings.ui.presentation.navigation.AlertDialogCommand
 import company.alex.com.parrotwings.ui.presentation.navigation.NavGraphConfigurator.Companion.changeRootFragment
 import company.alex.com.parrotwings.ui.presentation.navigation.NavigationCommand
-import company.alex.com.parrotwings.ui.presentation.screens.extensions.hideKeyboard
+import company.alex.com.parrotwings.ui.presentation.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.design.snackbar
