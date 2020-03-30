@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
@@ -35,8 +36,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[viewModelClass]
+        viewModel = ViewModelProvider(this, viewModelFactory)[viewModelClass]
 
         viewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         viewDataBinding.setVariable(bindingVariable, viewModel)
