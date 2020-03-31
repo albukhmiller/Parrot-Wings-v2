@@ -95,7 +95,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
                 is AlertDialogCommand.ShowError -> view.snackbar(command.message)
                 is AlertDialogCommand.ShowErrorById -> view.snackbar(command.messageId)
                 is AlertDialogCommand.ShowDialog -> alert(getString(command.message), getString(R.string.error)) {
-                    okButton { command.okAction }.also { context?.setTheme(R.style.AlertDialog) }
+                    okButton { command.okAction() }.also { context?.setTheme(R.style.AlertDialog) }
                 }.show()
             }
         }
