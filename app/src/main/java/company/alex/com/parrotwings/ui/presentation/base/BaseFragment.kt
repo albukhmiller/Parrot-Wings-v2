@@ -56,13 +56,20 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
         super.onActivityCreated(savedInstanceState)
 
         initNavigation()
+
+
     }
 
     protected fun initToolbar() {
+        toolbar.navigationIcon = context?.getDrawable(R.drawable.ic_arrow)
+
         activity?.setActionBar(toolbar)
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+        activity?.actionBar?.setDisplayShowHomeEnabled(true)
+
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+            view?.hideKeyboard()
         }
     }
 
