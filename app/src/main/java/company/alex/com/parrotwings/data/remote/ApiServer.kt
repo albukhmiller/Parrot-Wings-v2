@@ -7,6 +7,7 @@ import company.alex.com.parrotwings.data.remote.response.AuthUserResponse
 import company.alex.com.parrotwings.data.remote.response.TransactionHistoryResponse
 import company.alex.com.parrotwings.data.remote.response.UserInfoResponse
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -21,7 +22,7 @@ interface ApiServer {
     fun registration(@Body authUserRequest: AuthUserRequest): Single<AuthUserResponse>
 
     @GET(Endpoints.RETRIEVE_TRANSACTIONS)
-    fun getTransactions(): Single<TransactionHistoryResponse>
+    fun getTransactions(): Flowable<TransactionHistoryResponse>
 
     @POST(Endpoints.CREATE_TRANSACTION)
     fun createTransaction(@Body transactionRequest: TransactionRequest): Completable
@@ -30,5 +31,5 @@ interface ApiServer {
     fun getUserInfo(): Single<UserInfoResponse>
 
     @POST(Endpoints.FILTER_USERS)
-    fun searchUsers(@Body filter: SearchUserRequest): Single<MutableList<UserInfoResponse.UserInfo>>
+    fun searchUsers(@Body filter: SearchUserRequest): Flowable<MutableList<UserInfoResponse.UserInfo>>
 }
