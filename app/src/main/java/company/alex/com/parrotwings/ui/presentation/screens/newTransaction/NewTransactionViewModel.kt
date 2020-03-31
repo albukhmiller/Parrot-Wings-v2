@@ -54,12 +54,13 @@ class NewTransactionViewModel @Inject constructor(
     }
 
     fun updateUserSuggestions(value: String) {
-        if (value.isNullOrEmpty())
+        if (value.isEmpty())
             return isUserSuggestionsVisible.set(false)
 
         userSuggestions.postValue(mutableListOf())
 
         emitter?.onNext(value)
+        isUserSuggestionsVisible.set(true)
     }
 
     fun createTransaction() {
@@ -86,7 +87,6 @@ class NewTransactionViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe({
                 userSuggestions.value = it
-                isUserSuggestionsVisible.set(true)
             }, { t -> handleExceptions(t) })
     }
 }
