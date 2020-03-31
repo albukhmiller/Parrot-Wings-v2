@@ -4,9 +4,9 @@ import company.alex.com.parrotwings.data.remote.request.AuthUserRequest
 import company.alex.com.parrotwings.data.remote.request.SearchUserRequest
 import company.alex.com.parrotwings.data.remote.request.TransactionRequest
 import company.alex.com.parrotwings.data.remote.response.AuthUserResponse
-import company.alex.com.parrotwings.data.remote.response.NewTransactionResponse
 import company.alex.com.parrotwings.data.remote.response.TransactionHistoryResponse
 import company.alex.com.parrotwings.data.remote.response.UserInfoResponse
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -24,7 +24,7 @@ interface ApiServer {
     fun getTransactions(): Single<TransactionHistoryResponse>
 
     @POST(Endpoints.CREATE_TRANSACTION)
-    fun createTransaction(@Body transactionRequest: TransactionRequest): Single<NewTransactionResponse>
+    fun createTransaction(@Body transactionRequest: TransactionRequest): Completable
 
     @GET(Endpoints.USER_INFO)
     fun getUserInfo(): Single<UserInfoResponse>
