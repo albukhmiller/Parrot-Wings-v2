@@ -27,5 +27,6 @@
     <string name="noConnectionInternet">Проблемы с Интернетом. Проверьте соединение и повторите заново</string>
     <string name="unauthorizedError">Вы не авторизованы.</string>
     <string name="error">Ошибка</string>
+    <string name="invalidUser">Пользователь не найден</string>
     <string name="transactionMyself">Перевод средств самому себе невозможен</string>
 </resources>

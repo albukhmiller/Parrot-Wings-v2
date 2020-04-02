@@ -57,6 +57,13 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
         viewModel.userSuggestions.observe(this, Observer {
             adapter.setData(it)
         })
+
+        edRecipient.setOnFocusChangeListener { _, hasFocus ->
+            viewModel.fieldHasFocus = hasFocus
+
+            if(!hasFocus)
+                viewModel.isUserSuggestionsVisible.set(false)
+        }
     }
 
     private fun configureAmountEditView() {

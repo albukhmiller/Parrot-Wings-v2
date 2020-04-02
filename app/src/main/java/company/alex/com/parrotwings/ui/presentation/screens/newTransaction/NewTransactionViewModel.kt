@@ -4,6 +4,8 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
+import company.alex.com.parrotwings.R
+import company.alex.com.parrotwings.data.remote.excpetions.BadRequestException
 import company.alex.com.parrotwings.domain.model.NewTransaction
 import company.alex.com.parrotwings.domain.model.SearchUser
 import company.alex.com.parrotwings.domain.model.UserInfo
@@ -30,6 +32,7 @@ class NewTransactionViewModel @Inject constructor(
     var recipient = MutableLiveData<String>()
 
     var isForceHideUserSuggestions: Boolean = false
+    var fieldHasFocus = true
 
     var isCreateTransactionAvailable = ObservableField<Boolean>(false)
     var isUserSuggestionsVisible = ObservableField<Boolean>(true)
@@ -70,7 +73,11 @@ class NewTransactionViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe({
                 navigateBack()
-            }, { t -> handleExceptions(t) })
+            }, { t ->
+                if (t is BadRequestException)
+                    showError(R.string.invalidUser)
+                else handleExceptions(t)
+            })
     }
 
     private fun retrieveBalance() {
@@ -79,7 +86,9 @@ class NewTransactionViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe({
                 userInfo.value = it
-            }, { t -> handleExceptions(t) })
+            }, { t ->
+                handleExceptions(t)
+            })
     }
 
     private fun searchUsers(filter: String) {
@@ -87,7 +96,8 @@ class NewTransactionViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                userSuggestions.value = it
+                if (fieldHasFocus)
+                    userSuggestions.value = it
             }, { t -> handleExceptions(t) })
     }
 }
