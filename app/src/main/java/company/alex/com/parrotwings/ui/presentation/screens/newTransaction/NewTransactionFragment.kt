@@ -46,7 +46,6 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
         var adapter = RecipientAdapter {
             view?.hideKeyboard()
 
-            viewModel.isForceHideUserSuggestions = true
             viewModel.isUserSuggestionsVisible.set(false)
             edRecipient.removeTextChangedListener(this)
             edRecipient.editableText.replace(0, edRecipient.text?.length!!, it.name)
@@ -59,10 +58,7 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
         })
 
         edRecipient.setOnFocusChangeListener { _, hasFocus ->
-            viewModel.fieldHasFocus = hasFocus
-
-            if(!hasFocus)
-                viewModel.isUserSuggestionsVisible.set(false)
+            viewModel.isUserSuggestionsVisible.set(hasFocus)
         }
     }
 

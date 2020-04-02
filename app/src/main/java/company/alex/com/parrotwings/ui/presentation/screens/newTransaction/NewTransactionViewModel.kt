@@ -31,16 +31,12 @@ class NewTransactionViewModel @Inject constructor(
     var amount = MutableLiveData<Double>()
     var recipient = MutableLiveData<String>()
 
-    var isForceHideUserSuggestions: Boolean = false
-    var fieldHasFocus = true
+    var userSuggestions = MutableLiveData<List<SearchUser>>()
 
     var isCreateTransactionAvailable = ObservableField<Boolean>(false)
     var isUserSuggestionsVisible = ObservableField<Boolean>(true)
 
-    var emitter: Emitter<String>? = null
-
-    var userSuggestions = MutableLiveData<List<SearchUser>>()
-
+    private var emitter: Emitter<String>? = null
     private lateinit var searchUserRequest: Disposable
     private var output: Observable<String> = Observable.create<String> { emitter ->
         this.emitter = emitter
@@ -99,7 +95,7 @@ class NewTransactionViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                if (fieldHasFocus)
+                if (isUserSuggestionsVisible.get()!!)
                     userSuggestions.value = it
             }, { t -> handleExceptions(t) })
     }
