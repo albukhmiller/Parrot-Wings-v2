@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import company.alex.com.parrotwings.domain.model.NewTransaction
 import company.alex.com.parrotwings.domain.model.SearchUser
+import company.alex.com.parrotwings.domain.model.UserInfo
 import company.alex.com.parrotwings.domain.useCases.transaction.NewTransactionUseCase
 import company.alex.com.parrotwings.domain.useCases.user.SearchUserUseCase
 import company.alex.com.parrotwings.domain.useCases.user.UserInfoUseCase
@@ -24,7 +25,7 @@ class NewTransactionViewModel @Inject constructor(
     private val searchUserUseCase: SearchUserUseCase
 ) : BaseViewModel() {
 
-    var balance = MutableLiveData<Double>()
+    var userInfo = MutableLiveData<UserInfo>()
     var amount = MutableLiveData<Double>()
     var recipient = MutableLiveData<String>()
 
@@ -77,7 +78,7 @@ class NewTransactionViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                balance.value = it.balance
+                userInfo.value = it
             }, { t -> handleExceptions(t) })
     }
 

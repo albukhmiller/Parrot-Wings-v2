@@ -10,16 +10,16 @@ class TransactionHistoryUseCase @Inject constructor(private val repository: Tran
         var transactions = mutableListOf<Transaction>()
 
         it.transactions.forEach { transaction ->
-            transactions.add(
-                Transaction(
-                    transaction.id,
-                    transaction.username,
-                    transaction.balance,
-                    transaction.amount,
-                    transaction.date
+                transactions.add(
+                    Transaction(
+                        transaction.id,
+                        transaction.username,
+                        transaction.balance,
+                        transaction.amount,
+                        transaction.date
+                    )
                 )
-            )
+            }
+            return@map transactions
         }
-        return@map transactions
-    }
 }

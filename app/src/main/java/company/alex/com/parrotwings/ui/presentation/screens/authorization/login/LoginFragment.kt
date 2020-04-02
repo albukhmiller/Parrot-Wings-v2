@@ -11,6 +11,7 @@ import company.alex.com.parrotwings.BR
 import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.databinding.FragmentLoginBinding
 import company.alex.com.parrotwings.ui.presentation.base.BaseFragment
+import company.alex.com.parrotwings.ui.presentation.extensions.hideKeyboard
 import company.alex.com.parrotwings.utils.Validators
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -28,6 +29,12 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setEmailEditViewListeners()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
+        btnLogin.setOnClickListener { view?.hideKeyboard() }
+        tvRegistration.setOnClickListener { view?.hideKeyboard() }
     }
 
     private fun setEmailEditViewListeners() {

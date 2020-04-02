@@ -47,5 +47,16 @@ class Validators {
             return true
 
         }
+
+        fun validateTransactionMyself(view: EditText, myLogin: String): Boolean {
+            if (view.text.toString().toLowerCase() == myLogin.toLowerCase()) {
+                view.error = view.context.getString(R.string.transactionMyself)
+
+                return false
+            }
+
+            return true
+
+        }
     }
 }

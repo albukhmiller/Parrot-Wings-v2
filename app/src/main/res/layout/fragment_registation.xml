@@ -73,7 +73,7 @@
                 android:text="@string/btnRegistation"
                 android:layout_width="0dp"
                 android:layout_height="52dp"
-                android:id="@+id/button"
+                android:id="@+id/btnRegistration"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="60dp" app:layout_constraintStart_toStartOf="parent"

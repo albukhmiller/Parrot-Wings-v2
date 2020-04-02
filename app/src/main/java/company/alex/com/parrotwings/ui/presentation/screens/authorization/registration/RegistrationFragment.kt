@@ -11,8 +11,10 @@ import company.alex.com.parrotwings.BR
 import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.databinding.FragmentRegistationBinding
 import company.alex.com.parrotwings.ui.presentation.base.BaseFragment
+import company.alex.com.parrotwings.ui.presentation.extensions.hideKeyboard
 import company.alex.com.parrotwings.utils.Validators
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.edEmail
+import kotlinx.android.synthetic.main.fragment_registation.*
 
 class RegistrationFragment : BaseFragment<RegistrationViewModel, FragmentRegistationBinding>() {
     override var layoutId = R.layout.fragment_registation
@@ -28,6 +30,11 @@ class RegistrationFragment : BaseFragment<RegistrationViewModel, FragmentRegista
         super.onViewCreated(view, savedInstanceState)
 
         setEmailEditViewListeners()
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
+        btnRegistration.setOnClickListener { view?.hideKeyboard() }
     }
 
     private fun setEmailEditViewListeners() {

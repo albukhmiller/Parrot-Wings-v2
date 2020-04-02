@@ -13,6 +13,7 @@ import company.alex.com.parrotwings.R
 import company.alex.com.parrotwings.databinding.FragmentNewTransactionBinding
 import company.alex.com.parrotwings.ui.presentation.adapters.RecipientAdapter
 import company.alex.com.parrotwings.ui.presentation.base.BaseFragment
+import company.alex.com.parrotwings.ui.presentation.extensions.hideKeyboard
 import company.alex.com.parrotwings.utils.ControlsConfigurator
 import company.alex.com.parrotwings.utils.Validators
 import kotlinx.android.synthetic.main.fragment_new_transaction.*
@@ -37,6 +38,8 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
 
         configureAmountEditView()
         configureRecipientEditView()
+
+        setClickListeners()
     }
 
     private fun configureRecipientEditView() {
@@ -64,7 +67,7 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!s.toString().isNullOrEmpty() && !Character.isDigit(s.toString()[0])) {
+                if (s.toString().isNotEmpty() && !Character.isDigit(s.toString()[0])) {
                     edAmount.removeTextChangedListener(this)
                     edAmount.editableText.insert(0, "0")
                     edAmount.addTextChangedListener(this)
@@ -72,10 +75,14 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
 
                 viewModel.isCreateTransactionAvailable.set(
                     Validators.validateEmptyString(edAmount) &&
-                            Validators.validateExceedBalance(edAmount, viewModel.balance.value!!)
+                            Validators.validateExceedBalance(edAmount, viewModel.userInfo.value?.balance!!)
                 )
             }
         })
+    }
+
+    private fun setClickListeners() {
+        btnCreateTransaction.setOnClickListener { view?.hideKeyboard() }
     }
 
     /*recipient text watcher*/
@@ -86,7 +93,16 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        Validators.validateEmptyString(edRecipient)
+        if (Validators.validateEmptyString(edRecipient) && !viewModel.userInfo.value?.name?.let {
+                Validators.validateTransactionMyself(
+                    edRecipient,
+                    it
+                )
+            }!!
+        )
+
+            return
+
         viewModel.updateUserSuggestions(s.toString())
     }
 }

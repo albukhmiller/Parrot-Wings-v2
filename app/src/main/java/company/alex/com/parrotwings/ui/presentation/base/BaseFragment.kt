@@ -56,8 +56,6 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
         super.onActivityCreated(savedInstanceState)
 
         initNavigation()
-
-
     }
 
     protected fun initToolbar() {
