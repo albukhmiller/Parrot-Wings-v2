@@ -29,12 +29,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setEmailEditViewListeners()
-        setClickListeners()
-    }
-
-    private fun setClickListeners() {
-        btnLogin.setOnClickListener { view?.hideKeyboard() }
-        tvRegistration.setOnClickListener { view?.hideKeyboard() }
     }
 
     private fun setEmailEditViewListeners() {

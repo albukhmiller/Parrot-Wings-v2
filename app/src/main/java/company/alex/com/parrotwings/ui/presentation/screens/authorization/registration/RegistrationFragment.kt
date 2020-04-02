@@ -30,11 +30,6 @@ class RegistrationFragment : BaseFragment<RegistrationViewModel, FragmentRegista
         super.onViewCreated(view, savedInstanceState)
 
         setEmailEditViewListeners()
-        setClickListeners()
-    }
-
-    private fun setClickListeners() {
-        btnRegistration.setOnClickListener { view?.hideKeyboard() }
     }
 
     private fun setEmailEditViewListeners() {

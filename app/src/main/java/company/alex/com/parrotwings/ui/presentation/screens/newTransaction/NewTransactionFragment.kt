@@ -38,14 +38,14 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
 
         configureAmountEditView()
         configureRecipientEditView()
-
-        setClickListeners()
     }
 
     private fun configureRecipientEditView() {
         edRecipient.addTextChangedListener(this)
 
         var adapter = RecipientAdapter {
+            view?.hideKeyboard()
+
             viewModel.isForceHideUserSuggestions = true
             viewModel.isUserSuggestionsVisible.set(false)
             edRecipient.removeTextChangedListener(this)
@@ -79,10 +79,6 @@ class NewTransactionFragment : BaseFragment<NewTransactionViewModel, FragmentNew
                 )
             }
         })
-    }
-
-    private fun setClickListeners() {
-        btnCreateTransaction.setOnClickListener { view?.hideKeyboard() }
     }
 
     /*recipient text watcher*/
