@@ -36,7 +36,7 @@ class NewTransactionViewModel @Inject constructor(
 
     var emitter: Emitter<String>? = null
 
-    var userSuggestions = MutableLiveData<MutableList<SearchUser>>()
+    var userSuggestions = MutableLiveData<List<SearchUser>>()
 
     private lateinit var searchUserRequest: Disposable
     private var output: Observable<String> = Observable.create<String> { emitter ->

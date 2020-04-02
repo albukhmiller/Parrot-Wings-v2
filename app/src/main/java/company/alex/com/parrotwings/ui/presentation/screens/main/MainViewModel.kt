@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
     private val userInfoUseCase: UserInfoUseCase
 ) : BaseViewModel() {
 
-    var transactions = MutableLiveData<MutableList<Transaction>>()
+    var transactions = MutableLiveData<List<Transaction>>()
     var balance = MutableLiveData<Double>()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

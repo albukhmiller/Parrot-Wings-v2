@@ -10,6 +10,6 @@ class SearchUserUseCase @Inject constructor(private val userRepository: UserRepo
             var users = mutableListOf<SearchUser>()
             dtos.forEach { users.add(SearchUser(it.id, it.name)) }
 
-            return@map users
+            return@map users.toList()
         }
 }

@@ -10,8 +10,8 @@ import company.alex.com.parrotwings.domain.model.SearchUser
 
 
 class RecipientAdapter(private val listener : (SearchUser) -> Unit) :
-    BaseAdapter<RecipientAdapter.ReceiverHolder, MutableList<SearchUser>>() {
-    private var data = mutableListOf<SearchUser>()
+    BaseAdapter<RecipientAdapter.ReceiverHolder, List<SearchUser>>() {
+    private var data = listOf<SearchUser>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReceiverHolder {
         var inflater = LayoutInflater.from(parent.context)
@@ -31,7 +31,7 @@ class RecipientAdapter(private val listener : (SearchUser) -> Unit) :
 
     override fun onBindViewHolder(holder: ReceiverHolder, position: Int) = holder.bind(data[position], listener)
 
-    override fun setData(data: MutableList<SearchUser>) {
+    override fun setData(data: List<SearchUser>) {
         this.data = data
         notifyDataSetChanged()
     }

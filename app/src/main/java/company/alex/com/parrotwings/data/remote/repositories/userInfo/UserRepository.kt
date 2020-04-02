@@ -6,5 +6,5 @@ import io.reactivex.Single
 
 interface UserRepository {
     fun getUserInfo(): Single<UserInfoResponse>
-    fun searchUsers(filter: String): Flowable<MutableList<UserInfoResponse.UserInfo>>
+    fun searchUsers(filter: String): Flowable<List<UserInfoResponse.UserInfo>>
 }

@@ -20,6 +20,6 @@ class TransactionHistoryUseCase @Inject constructor(private val repository: Tran
                     )
                 )
             }
-            return@map transactions
+            return@map transactions.toList()
         }
 }

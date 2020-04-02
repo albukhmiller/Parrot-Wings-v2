@@ -31,5 +31,5 @@ interface ApiServer {
     fun getUserInfo(): Single<UserInfoResponse>
 
     @POST(Endpoints.FILTER_USERS)
-    fun searchUsers(@Body filter: SearchUserRequest): Flowable<MutableList<UserInfoResponse.UserInfo>>
+    fun searchUsers(@Body filter: SearchUserRequest): Flowable<List<UserInfoResponse.UserInfo>>
 }
