@@ -20,6 +20,7 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 
     fun login() {
         isLoading.set(true)
+        hideKeyboard()
 
         var user = UserAuth(login.value.orEmpty(), password.value.orEmpty())
         loginUseCase(user)

@@ -68,6 +68,9 @@ class NewTransactionViewModel @Inject constructor(
     }
 
     fun createTransaction() {
+        hideKeyboard()
+        isUserSuggestionsVisible.set(false)
+
         newTransactionUseCase(NewTransaction(recipient.value!!, amount.value!!))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

@@ -37,6 +37,7 @@ abstract class BaseViewModel : ViewModel(),
         navigationCommand.postValue(NavigationCommand.ToRoot(navHostFragment))
 
     protected fun navigateBack() = navigationCommand.postValue(NavigationCommand.Back)
+    protected fun hideKeyboard() = navigationCommand.postValue(NavigationCommand.HideKeyboard)
 
     protected fun showError(message: String) = errorHandlerCommand.postValue(AlertDialogCommand.ShowError(message))
     protected fun showError(messageId: Int) = errorHandlerCommand.postValue(AlertDialogCommand.ShowErrorById(messageId))

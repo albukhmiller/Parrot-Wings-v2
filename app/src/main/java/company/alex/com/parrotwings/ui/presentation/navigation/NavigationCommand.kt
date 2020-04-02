@@ -8,4 +8,5 @@ sealed class NavigationCommand {
     data class ChangeRootDestination(val destination: Int) : NavigationCommand()
 
     object Back : NavigationCommand()
+    object HideKeyboard : NavigationCommand()
 }

@@ -21,6 +21,8 @@ class RegistrationViewModel @Inject constructor(private val registrationUserCase
     var isRegistrationAvailable = ObservableField<Boolean>(false)
 
     fun registration() {
+        hideKeyboard()
+        
         var user = UserRegistration(userName.value.orEmpty(), password.value.orEmpty(), email.value.orEmpty())
 
         registrationUserCase(user)

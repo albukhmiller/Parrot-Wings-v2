@@ -73,24 +73,28 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
 
     private fun initNavigation() {
         viewModel.navigationCommand.observe(this) { command ->
-            run {
-                when (command) {
-                    is NavigationCommand.Back -> findNavController().popBackStack()
-                    is NavigationCommand.ToRoot -> findNavController().navigate(command.navHostFragment)
-                    is NavigationCommand.To -> findNavController().navigate(command.direction)
-                    is NavigationCommand.BackTo -> findNavController().popBackStack(command.destinationId, true)
-                    is NavigationCommand.ChangeRootDestination -> changeRootFragment(
-                        activity?.nav_host_fragment as NavHostFragment,
-                        command.destination
-                    )
-                    is NavigationCommand.ToWithData -> {
-                        var bundle = Bundle()
-                        bundle.putParcelable("nav", command.data as Parcelable)
-                        findNavController().navigate(command.direction, bundle)
-                    }
+            when (command) {
+                is NavigationCommand.Back -> findNavController().popBackStack()
+                is NavigationCommand.ToRoot -> findNavController().navigate(command.navHostFragment)
+                is NavigationCommand.To -> findNavController().navigate(command.direction)
+                is NavigationCommand.BackTo -> findNavController().popBackStack(command.destinationId, true)
+                is NavigationCommand.ChangeRootDestination -> changeRootFragment(
+                    activity?.nav_host_fragment as NavHostFragment,
+                    command.destination
+                )
+                is NavigationCommand.ToWithData -> {
+                    var bundle = Bundle()
+                    bundle.putParcelable("nav", command.data as Parcelable)
+                    findNavController().navigate(command.direction, bundle)
                 }
-                view?.hideKeyboard()
+                is NavigationCommand.HideKeyboard -> {
+                    view?.hideKeyboard()
+
+                    return@observe
+                }
             }
+            view?.hideKeyboard()
+
         }
     }
 
